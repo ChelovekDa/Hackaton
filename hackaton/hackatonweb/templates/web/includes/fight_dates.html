@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бойцы UFC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .fight-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .fight-table th {
+            background-color: #333;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #444;
+        }
+        .fight-table td {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        .fight-table tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+        .fight-table tr:hover td {
+            background-color: #f1f1f1;
+        }
+        .fighter-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .fighter-link:hover {
+            color: #004499;
+            text-decoration: underline;
+        }
+        .weight-class {
+            color: #555;
+            font-style: italic;
+        }
+        .champion-fight {
+            background-color: #fffde7 !important;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="color: #333; text-align: center;">Расписание боев UFC</h2>
+    
+    <table class="fight-table">
+        <thead>
+            <tr>
+                <th>Бойцы</th>
+                <th>Весовая категория</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="champion-fight">
+                <td><a href="#" class="fighter-link">СЕJUDO vs DILLASHAW</a></td>
+                <td class="weight-class">Чемпионский бой (ПЕСО-МОСКА)</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">HARDY vs CROWDER</a></td>
+                <td class="weight-class">ПЕСО ПЕСАДО</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">GILLESPIE vs MEDEIROS</a></td>
+                <td class="weight-class">ПЕСО ЛЕГКО</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">BENAVIDEZ vs ORTIZ</a></td>
+                <td class="weight-class">ПЕСО-МОСКА</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">VANZANT vs OSTOVICH</a></td>
+                <td class="weight-class">ПЕСО-МОСКА</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">TEIXEIRA vs ROBERSON</a></td>
+                <td class="weight-class">ПЕСО МЕЙО-ПЕСАДО</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">HERNANDEZ vs COWBOY</a></td>
+                <td class="weight-class">ПЕСО ЛЕГКО</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">CALDERWOOD vs LIPSKI</a></td>
+                <td class="weight-class">ПЕСО-МОСКА</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">MENIFIELD vs MOREIRA</a></td>
+                <td class="weight-class">ПЕСО МЕЙО-ПЕСАДО</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">SANDHAGEN vs BAUTISTA</a></td>
+                <td class="weight-class">ПЕСО-ГАЛО</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">BERMUDEZ vs EDWARDS</a></td>
+                <td class="weight-class">ПЕСО ЛЕГКО</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">MUHAMMAD vs NEAL</a></td>
+                <td class="weight-class">ПЕСО МЕЙО-СРЕДНИЙ</td>
+            </tr>
+            <tr>
+                <td><a href="#" class="fighter-link">STEWART vs RENCOUNTRE</a></td>
+				<td class="weight-class">ПЕСО МЕЙО-СРЕДНИЙ</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // Добавляем обработчики кликов для строк таблицы
+        document.querySelectorAll('.fighter-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const fighterNames = this.textContent;
+                alert(`Вы выбрали бой: ${fighterNames}\nДополнительная информация будет здесь!`);
+                // Вместо alert можно реализовать переход на страницу с деталями боя
+            });
+        });
+
+        // Добавляем возможность сортировки при клике на заголовок
+        document.querySelectorAll('.fight-table th').forEach(header => {
+            header.style.cursor = 'pointer';
+            header.addEventListener('click', function() {
+                const table = this.closest('table');
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                const columnIndex = Array.from(this.parentNode.children).indexOf(this);
+                
+                rows.sort((a, b) => {
+                    const aText = a.children[columnIndex].textContent.trim();
+                    const bText = b.children[columnIndex].textContent.trim();
+                    return aText.localeCompare(bText);
+                });
+                
+                // Очищаем и перезаполняем tbody
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                
+                rows.forEach(row => {
+                    tbody.appendChild(row);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

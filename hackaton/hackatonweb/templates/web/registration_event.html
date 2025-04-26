@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация боя</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #111;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+        
+        .header {
+            background-color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #ddd;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #fff;
+            background-color: #333;
+        }
+        
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .col {
+            flex: 1;
+        }
+        
+        .checkbox-group {
+            margin: 20px 0;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        
+        .checkbox-label input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-submit:hover {
+            background-color: #fff;
+            color: #000;
+        }
+        
+        .required:after {
+            content: " *";
+            color: #ff5555;
+        }
+        
+        .weapon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .weapon-option {
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .weapon-option:hover {
+            background-color: #333;
+            border-color: #fff;
+        }
+        
+        .weapon-option.selected {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+        
+        .weapon-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Новое мероприятие по дисциплине {{ topic|safe }}</h1>
+        </div>
+        
+        <div class="form-container">
+            <form id="fightRegistration">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="organizerName" class="required">Имя организатора</label>
+                            <input type="text" id="organizerName" name="organizerName" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="organizerPhone" class="required">Телефон</label>
+                            <input type="tel" id="organizerPhone" name="organizerPhone" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventName" class="required">Название мероприятия</label>
+                    <input type="text" id="eventName" name="eventName" required>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="fightDate" class="required">Дата боя</label>
+                            <input type="date" id="fightDate" name="fightDate" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="fightTime" class="required">Время начала</label>
+                            <input type="time" id="fightTime" name="fightTime" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location" class="required">Место проведения</label>
+                    <input type="text" id="location" name="location" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="required">Тип боя</label>
+                    <div class="row">
+                        <div class="col">
+                            <select id="fightType" name="fightType" required>
+                                <option value="">-- Выберите тип --</option>
+                                <option value="tournament">Турнир</option>
+                                <option value="exhibition">Выставочный бой</option>
+                                <option value="championship">Чемпионский бой</option>
+                                <option value="qualifying">Квалификационный бой</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select id="fightCategory" name="fightCategory" required>
+                                <option value="">-- Категория --</option>
+                                <option value="light">Лёгкий вес</option>
+                                <option value="middle">Средний вес</option>
+                                <option value="heavy">Тяжёлый вес</option>
+                                <option value="open">Абсолютная</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+               
+                
+                <div class="form-group">
+                    <label for="rules">Особые правила</label>
+                    <textarea id="rules" name="rules" rows="4"></textarea>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="agreeTerms" required> 
+                        Я согласен с <a href="#" style="color: #aaa;">правилами проведения боев</a> <span class="required"></span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="che
+
+
+
+
+
+
+
+
+                        ckbox" name="allowPhotos"> 
+                        Разрешаю использование фото/видео материалов
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-submit"><a href="панель организатора.html"> Зарегистрировать бой</a></button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function toggleWeapon(element) {
+            element.classList.toggle('selected');
+            updateSelectedWeapons();
+        }
+        
+        function updateSelectedWeapons() {
+            const selected = document.querySelectorAll('.weapon-option.selected');
+            const weapons = Array.from(selected).map(el => el.textContent.trim());
+            document.getElementById('selectedWeapons').value = weapons.join(', ');
+        }
+        
+        document.getElementById('fightRegistration').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Регистрация боя успешно отправлена!');
+            this.reset();
+            document.querySelectorAll('.weapon-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+        });
+    </script>
+</body>
+</html>
