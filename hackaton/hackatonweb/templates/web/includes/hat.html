@@ -3,9 +3,12 @@
     <div class="header-container">
         <div class="logo">{{ title }}</div>
         <div class="sport-buttons">
-            <a href="{% url 'box_various_login' %}"><button class="sport-btn boxing-btn" id="boxingBtn" type="submit">Бокс</button></a>
+            <a href="#"><button class="sport-btn boxing-btn" id="boxingBtn" type="submit">Бокс</button></a>
             <a href="#"><button class="sport-btn hockey-btn" id="hockeyBtn" type="submit">Хоккей</button></a>
-            <a href="#)"><button class="sport-btn tennis-btn" id="tennisBtn" type="submit">Теннис</button></a>
+            <a href="#"><button class="sport-btn tennis-btn" id="tennisBtn" type="submit">Теннис</button></a>
+        </div>
+        <div class="sport-buttons">
+            <a href="{% url 'box_various_login' %}"><button class="sport-btn login-btn" id="login" type="submit">Войти</button></a>
         </div>
     </div>
 </html>

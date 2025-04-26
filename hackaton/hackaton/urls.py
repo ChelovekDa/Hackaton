@@ -24,6 +24,8 @@ urlpatterns = [
     path('', index, name="index"),
     path('box/varous-login', login_redirect, name="box_various_login"),
     path('box/registration/<slug:reg_type>', registration, name="box_reg"),
+    path('box/registration/<slug:reg_type>/reg-license-agreement', license_agreement, name="licence"),
+    path('box/login', login, name="box_login")
     #path('login/', login_redirect, name="login"),
     #path('registration/login', login, name="reg_login")
 ]
